@@ -1,19 +1,23 @@
+
 from dash.dependencies import Input, Output, State
+import requests
+
+from ..model_manager import ModelManager
+
+model_manager = ModelManager()
+
 
 def register_callbacks(dash_app):
     @dash_app.callback(
-        Output('example-graph', 'figure'),
+        Output('output-container', 'children'),
         [Input('submit-button', 'n_clicks')],
-        [State('input-field', 'value')]
+        [State('input-text', 'value'), State('model-dropdown', 'value')]
     )
-    def update_graph(n_clicks, input_value):
-        # Hier würde normalerweise die Logik stehen, um Daten zu verarbeiten und den Graphen zu aktualisieren
-        # Einfaches Beispiel:
-        x = ['A', 'B', 'C']
-        y = [n_clicks, n_clicks * 2, n_clicks * 3]
-        return {
-            'data': [{'x': x, 'y': y, 'type': 'bar'}],
-            'layout': {
-                'title': f'Graph Updated {n_clicks} times, Input: {input_value}'
-            }
-        }
+    def update_output(n_clicks, input_value, selected_mode):
+        if n_clicks > 0 and input_value:
+            print(input_value)
+            response = model_manager.get_response(input_value, selected_mode)['message']['content']
+
+            print(response)
+            return response
+        return "Enter a prompt and press submit."
