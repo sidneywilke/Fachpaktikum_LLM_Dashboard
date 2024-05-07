@@ -19,3 +19,5 @@ Step 8: dann steht im terminal die ip die in den browser eingegeben werden kann
 
 Alles Frontend Dashboard mäßige ist in layout.py das dashboard ist wie bootstrap aufgebaut, also wie einfaches html umsetzbar
 
+Bitte immer aufm seperaten Branch arbeiten, dazu links unten 'Git' neuen Branch erstellen
+
