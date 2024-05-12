@@ -4,6 +4,9 @@ class ModelManager:
         self.ollama = ollama
 
     def get_response(self, prompt, model):
-        response = self.ollama.chat(model=model, messages=[{'role': 'user', 'content': prompt}])
-        return response
+        print(prompt, model)
+        response = self.ollama.chat(model=model, messages=[{'role': 'user', 'content': prompt}], stream=True)
+        for chunk in response:
+            print(f"{chunk['message']['content']}")
+            yield f"{chunk['message']['content']}"
 
