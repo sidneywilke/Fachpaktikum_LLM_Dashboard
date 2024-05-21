@@ -1,7 +1,6 @@
 from dash import Dash, html, dcc
 import dash_bootstrap_components as dbc
 
-
 def init_dashboard(server):
     dash_app = Dash(server=server, routes_pathname_prefix='/', external_stylesheets=[dbc.themes.BOOTSTRAP])
 
@@ -44,23 +43,23 @@ def init_dashboard(server):
                         {'label': 'Mistral', 'value': 'mistral'},
                         {'label': 'Gemma', 'value': 'gemma'}
                     ],
-                    value='mistral',
+                    value='gemma',
                     style={'width': '25%', 'display': 'inline-block', 'margin-left': '5px'}
                 ),
                 html.Button('Submit', id='submit-button', n_clicks=0, className="btn btn-primary ml-2")
-            ], width=4),
+            ], width=12),
         ]),
         dbc.Row([
             dbc.Col([
-                html.Div(id='output-container-1', children='Response from Model 1 will appear here.'),
+                html.Div(id='output-container-1', children=''),
                 dcc.Interval(id='interval-component-1', interval=1000, n_intervals=0, disabled=True)
             ], width=4),
             dbc.Col([
-                html.Div(id='output-container-2', children='Response from Model 2 will appear here.'),
+                html.Div(id='output-container-2', children=''),
                 dcc.Interval(id='interval-component-2', interval=1000, n_intervals=0, disabled=True)
             ], width=4),
             dbc.Col([
-                html.Div(id='output-container-3', children='Response from Model 3will appear here.'),
+                html.Div(id='output-container-3', children=''),
                 dcc.Interval(id='interval-component-3', interval=1000, n_intervals=0, disabled=True)
             ], width=4)
         ])
