@@ -51,16 +51,13 @@ def init_dashboard(server):
         ]),
         dbc.Row([
             dbc.Col([
-                html.Div(id='output-container-1', children=''),
-                dcc.Interval(id='interval-component-1', interval=1000, n_intervals=0, disabled=True)
+                html.Div(id='output-container-1', children='Response from Model 1 will appear here.'),
             ], width=4),
             dbc.Col([
-                html.Div(id='output-container-2', children=''),
-                dcc.Interval(id='interval-component-2', interval=1000, n_intervals=0, disabled=True)
+                html.Div(id='output-container-2', children='Response from Model 2 will appear here.'),
             ], width=4),
             dbc.Col([
-                html.Div(id='output-container-3', children=''),
-                dcc.Interval(id='interval-component-3', interval=1000, n_intervals=0, disabled=True)
+                html.Div(id='output-container-3', children='Response from Model 3 will appear here.'),
             ], width=4)
         ])
     ], fluid=True)
