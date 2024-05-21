@@ -7,6 +7,6 @@ class ModelManager:
         print(prompt, model)
         response = self.ollama.chat(model=model, messages=[{'role': 'user', 'content': prompt}], stream=True)
         for chunk in response:
-            print(f"{chunk['message']['content']}")
+            print(model+f"Model Manager Output{chunk['message']['content']}")
             yield f"{chunk['message']['content']}"
 
