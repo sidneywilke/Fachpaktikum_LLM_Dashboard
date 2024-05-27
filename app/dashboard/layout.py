@@ -46,18 +46,27 @@ def init_dashboard(server):
                     value='gemma',
                     style={'width': '25%', 'display': 'inline-block', 'margin-left': '5px'}
                 ),
+                dcc.Checklist(
+                    id='typing-effect-checkbox',
+                    options=[{'label': 'Enable Typing Effect', 'value': 'enabled'}],
+                    value=['enabled'],
+                    style={'margin-left': '5px'}
+                ),
                 html.Button('Submit', id='submit-button', n_clicks=0, className="btn btn-primary ml-2")
             ], width=12),
         ]),
         dbc.Row([
             dbc.Col([
-                html.Div(id='output-container-1', children='Response from Model 1 will appear here.'),
+                dcc.Markdown(id='output-container-1', children='Response from Model 1 will appear here.'),
+                dcc.Interval(id='interval-typing-1', interval=50, n_intervals=0, disabled=True)
             ], width=4),
             dbc.Col([
-                html.Div(id='output-container-2', children='Response from Model 2 will appear here.'),
+                dcc.Markdown(id='output-container-2', children='Response from Model 2 will appear here.'),
+                dcc.Interval(id='interval-typing-2', interval=50, n_intervals=0, disabled=True)
             ], width=4),
             dbc.Col([
-                html.Div(id='output-container-3', children='Response from Model 3 will appear here.'),
+                dcc.Markdown(id='output-container-3', children='Response from Model 3 will appear here.'),
+                dcc.Interval(id='interval-typing-3', interval=50, n_intervals=0, disabled=True)
             ], width=4)
         ])
     ], fluid=True)
