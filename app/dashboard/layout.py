@@ -58,14 +58,17 @@ def init_dashboard(server):
         dbc.Row([
             dbc.Col([
                 dcc.Markdown(id='output-container-1', children='Response from Model 1 will appear here.'),
+                html.Div(id='response-time-1', children='Time taken by Model 1: Not started'),
                 dcc.Interval(id='interval-typing-1', interval=50, n_intervals=0, disabled=True)
             ], width=4),
             dbc.Col([
                 dcc.Markdown(id='output-container-2', children='Response from Model 2 will appear here.'),
+                html.Div(id='response-time-2', children='Time taken by Model 2: Not started'),
                 dcc.Interval(id='interval-typing-2', interval=50, n_intervals=0, disabled=True)
             ], width=4),
             dbc.Col([
                 dcc.Markdown(id='output-container-3', children='Response from Model 3 will appear here.'),
+                html.Div(id='response-time-3', children='Time taken by Model 3: Not started'),
                 dcc.Interval(id='interval-typing-3', interval=50, n_intervals=0, disabled=True)
             ], width=4)
         ])
