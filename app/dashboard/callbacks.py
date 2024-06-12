@@ -9,6 +9,7 @@ responses = ['', '', '']  # To store full responses for typing effect
 current_indices = [0, 0, 0]  # To keep track of the current word index for each response
 start_times = [0, 0, 0]  # To record the start time of each model's response
 end_times = [0, 0, 0]  # To record the end time of each model's response
+time_1 = 0
 
 def get_words(text):
     return text.split()
@@ -50,7 +51,7 @@ def register_callbacks(dash_app):
             end_times[0] = time.time()
             current_indices[0] = 0
             if 'enabled' in typing_effect:
-                return '', dash.no_update, dash.no_update, False, True, True, f'Time taken by Model 1: {end_times[0] - start_times[0]:.2f} seconds', dash.no_update, dash.no_update
+                return '', dash.no_update, dash.no_update, False, True, True, end_times[0] - start_times[0], dash.no_update, dash.no_update
             else:
                 # Immediately proceed to the next model if typing effect is disabled
                 start_times[1] = time.time()
@@ -59,7 +60,9 @@ def register_callbacks(dash_app):
                 start_times[2] = time.time()
                 responses[2] = model_manager.get_response(input_value, model=model3)
                 end_times[2] = time.time()
-                return responses[0], responses[1], responses[2], True, True, True, f'Time taken by Model 1: {end_times[0] - start_times[0]:.2f} seconds', f'Time taken by Model 2: {end_times[1] - start_times[1]:.2f} seconds', f'Time taken by Model 3: {end_times[2] - start_times[2]:.2f} seconds'
+                global time_1
+                time_1 = end_times[0] - start_times[0]
+                return responses[0], responses[1], responses[2], True, True, True, end_times[0] - start_times[0], end_times[1] - start_times[1], end_times[2] - start_times[2]
 
         # Process the typing effect for the first model
         if button_id == 'interval-typing-1' and current_indices[0] < len(get_words(responses[0])):
@@ -74,7 +77,7 @@ def register_callbacks(dash_app):
                 if 'enabled' in typing_effect:
                     return new_text_1, dash.no_update, dash.no_update, True, False, True, f'Time taken by Model 1: {end_times[0] - start_times[0]:.2f} seconds', dash.no_update, dash.no_update
                 else:
-                    return new_text_1, responses[1], dash.no_update, True, True, True, f'Time taken by Model 1: {end_times[0] - start_times[0]:.2f} seconds', f'Time taken by Model 2: {end_times[1] - start_times[1]:.2f} seconds', dash.no_update
+                    return new_text_1, responses[1], dash.no_update, True, True, True,  {end_times[0] - start_times[0]} , f'Time taken by Model 2: {end_times[1] - start_times[1]:.2f} seconds', dash.no_update
             return new_text_1, dash.no_update, dash.no_update, False, True, True, dash.no_update, dash.no_update, dash.no_update
 
         # Process the typing effect for the second model
