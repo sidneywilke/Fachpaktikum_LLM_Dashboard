@@ -1,10 +1,11 @@
+
 from dash import Dash, html, dcc
 import dash_bootstrap_components as dbc
 import dash_daq as daq
-from .callbacks import time_1
+from dash import dash_table
 
 def init_dashboard(server):
-    dash_app = Dash(server=server, routes_pathname_prefix='/', external_stylesheets=[dbc.themes.BOOTSTRAP])
+    dash_app = Dash(server=server, routes_pathname_prefix='/', assets_folder='assets', assets_url_path='/assets/', external_stylesheets=[dbc.themes.BOOTSTRAP])
 
     dash_app.layout = dbc.Container([
         dbc.Row(
@@ -62,7 +63,7 @@ def init_dashboard(server):
         ], className="w-100 mt-2 gx-0", style={'height':'50px', 'marginRight': '0px'}),
         dbc.Row(dcc.Checklist(
                     id='typing-effect-checkbox',
-                    options=[{'label': 'Enable Typing Effect', 'value': 'enabled'}],
+                    options=[{'label': '   Enable Typing Effect', 'value': 'disabled'}],
                     value=['enabled'],
                     className='mx-2'
 
@@ -70,51 +71,120 @@ def init_dashboard(server):
         dbc.Row([
             dbc.Col([
                 dcc.Markdown(id='output-container-1', children='Response from Model 1 will appear here.'),
-                dcc.Interval(id='interval-typing-1', interval=50, n_intervals=0, disabled=True)
-            ], width=8, className='p-3', style={'align-items': 'center','boxShadow': 'rgb(178 178 178 / 30%) 0px 0px 16px 2px', 'borderRadius': '4px'}),
+                dcc.Interval(id='interval-typing-1', interval=50, n_intervals=0, disabled=True),
+                dbc.Col([
+                    html.Button('Like', id='like-button-1', className="btn btn-success mx-2", style={'display': 'none'}),
+                    html.Button('Dislike', id='dislike-button-1', className="btn btn-danger mx-2", style={'display': 'none'})
+                ], className='mx-auto p-3 d-flex justify-content-evenly', style={'width': '180px'})
+            ], width=9, className='p-3', style={'align-items': 'center','boxShadow': 'rgb(178 178 178 / 30%) 0px 0px 16px 2px', 'borderRadius': '4px'}),
             dbc.Col([
                 daq.Gauge(
                     id='response-time-1',
-                    value= 0,
-                    label='Default',
-                    max=30,
+                    showCurrentValue=True,
+                    value=0,
+                    label='Response Time Model 1',
+                    max=20,
                     min=0,
+                    style={'height': '250px'}
                 ),
             ], width='auto', className='p-3 mx-2',
                 style={'boxShadow': 'rgb(178 178 178 / 30%) 0px 0px 16px 2px', 'borderRadius': '4px', 'width':'450px'}),
-            dbc.Col([
-                html.Button('Like', id='like-button',  className="btn btn-primary mx-2"),
-                html.Button('Dislike', id='dislike-button', className="btn btn-primary mx-2")
-            ],width='auto', className='p-3 d-flex justify-content-evenly',
-                style={'boxShadow': 'rgb(178 178 178 / 30%) 0px 0px 16px 2px', 'borderRadius': '4px', 'width': '180px'})
+
         ], className='mx-1 my-2'),
         dbc.Row([
             dbc.Col([
                 dcc.Markdown(id='output-container-2', children='Response from Model 2 will appear here.'),
-
-                dcc.Interval(id='interval-typing-2', interval=50, n_intervals=0, disabled=True)
-            ], width=8, className='p-3 mx-2', style={'boxShadow': 'rgb(178 178 178 / 30%) 0px 0px 16px 2px', 'borderRadius': '4px'}),
+                dcc.Interval(id='interval-typing-2', interval=50, n_intervals=0, disabled=True),
+                dbc.Col([
+                    html.Button('Like', id='like-button-2', className="btn btn-success mx-2", style={'display': 'none'}),
+                    html.Button('Dislike', id='dislike-button-2', className="btn btn-danger mx-2", style={'display': 'none'})
+                ], className='mx-auto p-3 d-flex justify-content-evenly', style={'width': '180px'})
+            ], width=9, className='p-3', style={'boxShadow': 'rgb(178 178 178 / 30%) 0px 0px 16px 2px', 'borderRadius': '4px'}),
             dbc.Col([
-                html.Div(id='response-time-2', children='Time taken by Model 2: Not started'),
-            ], width=2, className='p-3',
-                style={'boxShadow': 'rgb(178 178 178 / 30%) 0px 0px 16px 2px', 'borderRadius': '4px'})
+                daq.Gauge(
+                    id='response-time-2',
+                    showCurrentValue=True,
+                    value=0,
+                    label='Response Time Model 2',
+                    max=20,
+                    min=0,
+                    style={'height': '250px'}
+                ),
+            ], width='auto', className='p-3 mx-2',
+                style={'boxShadow': 'rgb(178 178 178 / 30%) 0px 0px 16px 2px', 'borderRadius': '4px',
+                       'width': '450px'}),
+
         ], className='mx-1 my-2'),
         dbc.Row([
             dbc.Col([
                 dcc.Markdown(id='output-container-3', children='Response from Model 3 will appear here.'),
-                dcc.Interval(id='interval-typing-3', interval=50, n_intervals=0, disabled=True)
-            ], width=8, className='p-3 mx-2', style={'boxShadow': 'rgb(178 178 178 / 30%) 0px 0px 16px 2px', 'borderRadius': '4px'}),
+                dcc.Interval(id='interval-typing-3', interval=50, n_intervals=0, disabled=True),
+                dbc.Col([
+                    html.Button('Like', id='like-button-3', className="btn btn-success mx-2", style={'display': 'none'}),
+                    html.Button('Dislike', id='dislike-button-3', className="btn btn-danger mx-2", style={'display': 'none'})
+                ], className='mx-auto p-3 d-flex justify-content-evenly', style={'width': '180px'})
+            ], width=9, className='p-3', style={'boxShadow': 'rgb(178 178 178 / 30%) 0px 0px 16px 2px', 'borderRadius': '4px'}),
             dbc.Col([
                 daq.Gauge(
-                    value=5,
-                    label='Default',
+                    id='response-time-3',
+                    showCurrentValue=True,
+                    value=0,
+                    label='Response Time Model 3',
                     max=20,
                     min=0,
+                    style={'height': '250px'}
                 ),
-                html.Div(id='response-time-3', children='Time taken by Model 3: Not started'),
-            ], width=2, className='p-3',
-                style={'boxShadow': 'rgb(178 178 178 / 30%) 0px 0px 16px 2px', 'borderRadius': '4px'})
-        ], className='mx-1 my-2')
-    ], fluid=True)
+
+            ], width='auto', className='p-3 mx-2',
+                style={'boxShadow': 'rgb(178 178 178 / 30%) 0px 0px 16px 2px', 'borderRadius': '4px',
+                       'width': '450px'}),
+
+        ], className='mx-1 my-2'),
+        dbc.Row([
+            dbc.Col([
+                dash_table.DataTable(
+                    id='model-comparison-table',
+                    editable=True,
+                    filter_action="native",
+                    sort_action="native",
+                    columns=[
+                        {"name": "Rank", "id": "rank"},
+                        {"name": "Model", "id": "model"},
+                        {"name": "Time To First Token", "id": "ttft"},
+                        {"name": "Time Per Output Token", "id": "tpok"},
+                        {"name": "Total Generation Time", "id": "tgt"},
+                        {"name": "Token per Second", "id": "tps"},
+                        {"name": "Quality", "id": "quality"},
+                    ],
+                    data=[
+                        {"rank": 1, "model": "Phi3", "ttft": 1287, "tpok": "+4/-4", "tgt": 34985,
+                         "tps": "test", "quality": "good", },
+                        {"rank": 1, "model": "Gemma", "ttft": 1287, "tpok": "+4/-4", "tgt": 34985,
+                         "tps": "test", "quality": "good", },
+                        {"rank": 1, "model": "Mistral 7k", "ttft": 1287, "tpok": "+4/-4", "tgt": 34985,
+                         "tps": "test", "quality": "good", }
+
+                    ],
+                    style_cell={
+                        'textAlign': 'left',
+                        'padding': '5px',
+                        'font-family': 'var(--bs-body-font-family)'
+                    },
+                    style_header={
+                        'fontWeight': 'bold',
+                        'font-family': 'var(--bs-body-font-family)'
+                    },
+                    style_table={
+                        'width': '100%',
+                        'font-family': 'var(--bs-body-font-family)',
+                    },
+                    css = [{
+                        'selector': '.dash-spreadsheet-container',
+                        'rule': 'box-shadow: rgb(178 178 178 / 30%) 0px 0px 16px 2px; overflow: hidden;'
+                    }],
+                )
+            ], className='mx-3 my-3 gx-0 w-100')
+        ])
+    ], fluid=True, )
 
     return dash_app
