@@ -61,13 +61,6 @@ def init_dashboard(server):
                 html.Button('Submit', id='submit-button', n_clicks=0, className="btn btn-primary ml-2")
             ], width=1, className='d-flex justify-content-end px-0'),
         ], className="w-100 mt-2 gx-0", style={'height':'50px', 'marginRight': '0px'}),
-        dbc.Row(dcc.Checklist(
-                    id='typing-effect-checkbox',
-                    options=[{'label': '   Enable Typing Effect', 'value': 'disabled'}],
-                    value=['enabled'],
-                    className='mx-2'
-
-                ),className='w-100 mt-2 mb-4 gx-0'),
         dbc.Row([
             dbc.Col([
                 dcc.Markdown(id='output-container-1', children='Response from Model 1 will appear here.'),
@@ -157,12 +150,12 @@ def init_dashboard(server):
                         {"name": "Quality", "id": "quality"},
                     ],
                     data=[
-                        {"rank": 1, "model": "Phi3", "ttft": 1287, "tpok": "+4/-4", "tgt": 34985,
-                         "tps": "test", "quality": "good", },
-                        {"rank": 1, "model": "Gemma", "ttft": 1287, "tpok": "+4/-4", "tgt": 34985,
-                         "tps": "test", "quality": "good", },
-                        {"rank": 1, "model": "Mistral 7k", "ttft": 1287, "tpok": "+4/-4", "tgt": 34985,
-                         "tps": "test", "quality": "good", }
+                        {"rank": 1, "model": "Phi3", "ttft": '0.3s', "tpok": 78, "tgt": '6.3s',
+                         "tps": 5.3, "quality": 769, },
+                        {"rank": 3, "model": "Gemma", "ttft": '0.4s', "tpok": 53, "tgt": '12.83s',
+                         "tps": 3.7, "quality": 987, },
+                        {"rank": 2, "model": "Mistral 7k", 'ttft': '0.2s', "tpok": 65, "tgt": '9.37s',
+                         "tps": 4.2, "quality": 867, }
 
                     ],
                     style_cell={
