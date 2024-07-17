@@ -190,7 +190,7 @@ def init_dashboard(server, columns, data):
                     options=[{'label': col['name'], 'value': col['id']} for col in columns if col['id'] != 'model'],
                     value='quality',
                     clearable=False,
-                    className="dbc w-100 mx-2"
+                    className="dbc w-50 mx-auto"
                 ),
                 dcc.Graph(id='bar-chart', className="mx-auto", style={'width': '30%'})
             ], width=12)
