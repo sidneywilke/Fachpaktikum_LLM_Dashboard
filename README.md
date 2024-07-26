@@ -23,6 +23,6 @@ Benutzerhandbuch
 
 Im oberen Bereich des Dashboards ist links ein gewöhnliches Input zu finden, in das der Prompt eingegeben werden kann. Rechts daneben sind 3 Dropdownmenüs, mit welchen das zu benutzende LLM ausgewählt werden kann. Die Auswahlmöglichkeiten sind im Quellcode anzupassen und funktionieren nur, wenn sie mit Ollama im Voraus heruntergeladen wurden.
 
-Darunter sind die Ausgabefenster zu finden. Das obere ist zugehörig zum LLM im linken Dropdown usw. Rechts daneben befindet sich die Ausgabezeit in Form eines Tachometers. Dieses lässt sich nutzen, um die Antwortzeit der einzelnen LLMs miteinander vergleichen zu können.
+Darunter sind die Ausgabefenster zu finden. Das obere ist zugehörig zum LLM im linken Dropdown usw. Die Antwort wird wenn vom Modell in Markdown dargestellt, was die Übersichtlichkeit und optische Aufbereitung der Antwort unterstützt. Ist die Antwort generiert, erscheinen Emojis, mit denen die Qualität der Antwort bewertet werden kann. Dieses dient dazu, ein Gesamtqualitätsscore zu bilden, der in der unteren Tabelle wieder verwendet werden kann. Rechts daneben befindet sich die Ausgabezeit in Form eines Tachometers. Dieses lässt sich nutzen, um die Antwortzeit der einzelnen LLMs miteinander vergleichen zu können.
 
-Im letzten Abschnitt ist die 
+Der letzte Abschnitt ist die Parametervergleichstabelle. Hier können dynamische (vom Gerät abhängige) Parameter links und statische, eher ethische Parameter rechts der einzelnen LLM miteinander verglichen werden. Dabei unterstützt die darunter liegende dynamische Diagarmmdarstellung, in der einzelne Parameter auch visuell miteinander verglichen werden können.
