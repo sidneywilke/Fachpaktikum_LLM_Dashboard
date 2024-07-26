@@ -1,23 +1,28 @@
-Step 1: bei Pycharm neues projekt von VersionControl und da den github link einfügen
+Entwicklung starten:
 
-Step 2: das installieren https://ollama.com
+Step 1: Bei einer IDE neues projekt von VersionControl anlegen und das Github Repository klonen
 
-Step 3: Ollama ausführen
+Step 2: Um die LLMs anzusprechen, muss der Ollama Client im Hintergrund laufen, dieser kann unter https://ollama.com heruntergeladen werden
 
-Step 4: terminal auf deinem pc öffnen 
+Step 3: Per Terminal können nun die LLMs zur lokalen Benutzung heruntergeladen werden mit
+        ollama pull Modellname
 
-Step 5  ollama pull mistral
+        In unserem Beispiel haben wir die 3 Modelle Mistral, Phi3 und Gemma verwendet
+        ollama pull mistral
         ollama pull phi3
-        ollama pull gemma eingeben
+        ollama pull gemma 
 
-Step 6: bei pycharm ins terminal eingeben
-        pip install flask, dash, ollama, dash_bootstrap_components
+Step 4: In der IDE sind alle notwendigen Packages zu installieren, im Detail:
+        pip install flask, dash, ollama, dash_bootstrap_components, dash_daq, dash-table, dash_html_components
 
-Step 7: run.py ausführen
+Step 5: run.py ausführen
 
-Step 8: dann steht im terminal die ip die in den browser eingegeben werden kann
 
-Alles Frontend Dashboard mäßige ist in layout.py das dashboard ist wie bootstrap aufgebaut, also wie einfaches html umsetzbar
 
-Bitte immer aufm seperaten Branch arbeiten, dazu links unten 'Git' neuen Branch erstellen
+Benutzerhandbuch
 
+Im oberen Bereich des Dashboards ist links ein gewöhnliches Input zu finden, in das der Prompt eingegeben werden kann. Rechts daneben sind 3 Dropdownmenüs, mit welchen das zu benutzende LLM ausgewählt werden kann. Die Auswahlmöglichkeiten sind im Quellcode anzupassen und funktionieren nur, wenn sie mit Ollama im Voraus heruntergeladen wurden.
+
+Darunter sind die Ausgabefenster zu finden. Das obere ist zugehörig zum LLM im linken Dropdown usw. Rechts daneben befindet sich die Ausgabezeit in Form eines Tachometers. Dieses lässt sich nutzen, um die Antwortzeit der einzelnen LLMs miteinander vergleichen zu können.
+
+Im letzten Abschnitt ist die 
