@@ -4,7 +4,7 @@ import dash_bootstrap_components as dbc
 import dash_daq as daq
 from dash import dash_table
 
-def init_dashboard(server):
+def init_dashboard(server, columns, data):
     dash_app = Dash(server=server, routes_pathname_prefix='/', assets_folder='assets', assets_url_path='/assets/', external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # Darstellung des Dashboards gemäß Bootstarp CSCS
@@ -28,9 +28,9 @@ def init_dashboard(server):
                         id='model-dropdown-1',
                         className="dbc w-100 mx-2",
                         options=[
-                            {'label': 'Phi3', 'value': 'phi3'},
-                            {'label': 'Mistral', 'value': 'mistral'},
-                            {'label': 'Gemma', 'value': 'gemma'}
+                            {'label': 'Phi3     4,7/5★', 'value': 'phi3'},
+                            {'label': 'Mistral      4,2/5★', 'value': 'mistral'},
+                            {'label': 'Gemma        3.8/5★', 'value': 'gemma'}
                         ],
                         value='phi3',
                         style={'display': 'inline-block', 'width':'100%'}
@@ -39,9 +39,9 @@ def init_dashboard(server):
                     dcc.Dropdown(
                         id='model-dropdown-2',
                         options=[
-                            {'label': 'Phi3', 'value': 'phi3'},
-                            {'label': 'Mistral', 'value': 'mistral'},
-                            {'label': 'Gemma', 'value': 'gemma'}
+                            {'label': 'Phi3     4,7/5★', 'value': 'phi3'},
+                            {'label': 'Mistral      4,2/5★', 'value': 'mistral'},
+                            {'label': 'Gemma        3.8/5★', 'value': 'gemma'}
                         ],
                         value='mistral',
                         style={'display': 'inline-block', 'width':'100%' }
@@ -50,9 +50,9 @@ def init_dashboard(server):
                     dcc.Dropdown(
                         id='model-dropdown-3',
                         options=[
-                            {'label': 'Phi3', 'value': 'phi3'},
-                            {'label': 'Mistral', 'value': 'mistral'},
-                            {'label': 'Gemma', 'value': 'gemma'}
+                            {'label': 'Phi3     4,7/5★', 'value': 'phi3'},
+                            {'label': 'Mistral      4,2/5★', 'value': 'mistral'},
+                            {'label': 'Gemma        3.8/5★', 'value': 'gemma'}
                         ],
                         value='gemma',
                         style={'display': 'inline-block', 'width':'100%',}
@@ -67,8 +67,10 @@ def init_dashboard(server):
                 dcc.Markdown(id='output-container-1', children='Response from Model 1 will appear here.'),
                 dcc.Interval(id='interval-typing-1', interval=50, n_intervals=0, disabled=True),
                 dbc.Col([
-                    html.Button('Like', id='like-button-1', className="btn btn-success mx-2", style={'display': 'none'}),
-                    html.Button('Dislike', id='dislike-button-1', className="btn btn-danger mx-2", style={'display': 'none'})
+                    html.Button('\U0001F642', id='like-button-1', className="btn btn-success mx-2", style={'display': 'none'}),
+                    html.Button('\U0001F610', id='neutral-button-1', className="btn btn-secondary mx-2",
+                               style={'display': 'none'}),
+                    html.Button('\U0001F641', id='dislike-button-1', className="btn btn-danger mx-2", style={'display': 'none'})
                 ], className='mx-auto p-3 d-flex justify-content-evenly', style={'width': '180px'})
             ], width=9, className='p-3', style={'align-items': 'center','boxShadow': 'rgb(178 178 178 / 30%) 0px 0px 16px 2px', 'borderRadius': '4px'}),
             dbc.Col([
@@ -90,8 +92,12 @@ def init_dashboard(server):
                 dcc.Markdown(id='output-container-2', children='Response from Model 2 will appear here.'),
                 dcc.Interval(id='interval-typing-2', interval=50, n_intervals=0, disabled=True),
                 dbc.Col([
-                    html.Button('Like', id='like-button-2', className="btn btn-success mx-2", style={'display': 'none'}),
-                    html.Button('Dislike', id='dislike-button-2', className="btn btn-danger mx-2", style={'display': 'none'})
+                    html.Button('\U0001F642', id='like-button-2', className="btn btn-success mx-2",
+                                style={'display': 'none'}),
+                    html.Button('\U0001F610', id='neutral-button-2', className="btn btn-secondary  mx-2",
+                                style={'display': 'none'}),
+                    html.Button('\U0001F641', id='dislike-button-2', className="btn btn-danger mx-2",
+                                style={'display': 'none'})
                 ], className='mx-auto p-3 d-flex justify-content-evenly', style={'width': '180px'})
             ], width=9, className='p-3', style={'boxShadow': 'rgb(178 178 178 / 30%) 0px 0px 16px 2px', 'borderRadius': '4px'}),
             dbc.Col([
@@ -114,8 +120,12 @@ def init_dashboard(server):
                 dcc.Markdown(id='output-container-3', children='Response from Model 3 will appear here.'),
                 dcc.Interval(id='interval-typing-3', interval=50, n_intervals=0, disabled=True),
                 dbc.Col([
-                    html.Button('Like', id='like-button-3', className="btn btn-success mx-2", style={'display': 'none'}),
-                    html.Button('Dislike', id='dislike-button-3', className="btn btn-danger mx-2", style={'display': 'none'})
+                    html.Button('\U0001F642', id='like-button-3', className="btn btn-success mx-2",
+                                style={'display': 'none'}),
+                    html.Button('\U0001F610', id='neutral-button-3', className="btn btn-secondary  mx-2",
+                                style={'display': 'none'}),
+                    html.Button('\U0001F641', id='dislike-button-3', className="btn btn-danger mx-2",
+                                style={'display': 'none'})
                 ], className='mx-auto p-3 d-flex justify-content-evenly', style={'width': '180px'})
             ], width=9, className='p-3', style={'boxShadow': 'rgb(178 178 178 / 30%) 0px 0px 16px 2px', 'borderRadius': '4px'}),
             dbc.Col([
@@ -141,24 +151,8 @@ def init_dashboard(server):
                     editable=True,
                     filter_action="native",
                     sort_action="native",
-                    columns=[
-                        {"name": "Rank", "id": "rank"},
-                        {"name": "Model", "id": "model"},
-                        {"name": "Time To First Token", "id": "ttft"},
-                        {"name": "Time Per Output Token", "id": "tpok"},
-                        {"name": "Total Generation Time", "id": "tgt"},
-                        {"name": "Token per Second", "id": "tps"},
-                        {"name": "Quality", "id": "quality"},
-                    ],
-                    data=[
-                        {"rank": 1, "model": "Phi3", "ttft": '0.3s', "tpok": 78, "tgt": '6.3s',
-                         "tps": 5.3, "quality": 769, },
-                        {"rank": 3, "model": "Gemma", "ttft": '0.4s', "tpok": 53, "tgt": '12.83s',
-                         "tps": 3.7, "quality": 987, },
-                        {"rank": 2, "model": "Mistral 7k", 'ttft': '0.2s', "tpok": 65, "tgt": '9.37s',
-                         "tps": 4.2, "quality": 867, }
-
-                    ],
+                    columns=columns,
+                    data=data,
                     style_cell={
                         'textAlign': 'left',
                         'padding': '5px',
@@ -172,13 +166,37 @@ def init_dashboard(server):
                         'width': '100%',
                         'font-family': 'var(--bs-body-font-family)',
                     },
+                    style_data_conditional=[
+                        {
+                            'if': {'column_id': col_id},
+                            'backgroundColor': '#FFFFE0'
+                        } for col_id in ["ttft", "tpok", "tgt", "tps", "quality"]
+                    ] + [
+                        {
+                            'if': {'column_id': col_id},
+                            'backgroundColor': '#E0F7FF'  # Blue
+                        } for col_id in ["privacy", "ethics", "bias", "non-toxicity"]
+                    ],
                     css = [{
                         'selector': '.dash-spreadsheet-container',
                         'rule': 'box-shadow: rgb(178 178 178 / 30%) 0px 0px 16px 2px; overflow: hidden;'
                     }],
                 )
             ], className='mx-3 my-3 gx-0 w-100')
-        ])
+        ]),
+        dbc.Row([
+            dbc.Col([
+                dcc.Dropdown(
+                    id='column-selector',
+                    options=[{'label': col['name'], 'value': col['id']} for col in columns if col['id'] != 'model'],
+                    value='quality',
+                    clearable=False,
+                    className="dbc w-50 mx-auto"
+                ),
+                dcc.Graph(id='bar-chart', className="mx-auto", style={'width': '30%'})
+            ], width=12)
+        ], className='mx-1 my-2')
     ], fluid=True, )
+
 
     return dash_app

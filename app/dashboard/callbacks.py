@@ -2,6 +2,8 @@ from dash.dependencies import Input, Output, State
 import dash
 from ..model_manager import ModelManager
 import time
+import plotly.express as px
+import pandas as pd
 
 model_manager = ModelManager()
 
@@ -24,10 +26,13 @@ def register_callbacks(dash_app):
          Output('response-time-3', 'value'),
          Output('like-button-1', 'style'),
          Output('dislike-button-1', 'style'),
+         Output('neutral-button-1', 'style'),
          Output('like-button-2', 'style'),
          Output('dislike-button-2', 'style'),
+         Output('neutral-button-2', 'style'),
          Output('like-button-3', 'style'),
-         Output('dislike-button-3', 'style')],
+         Output('dislike-button-3', 'style'),
+         Output('neutral-button-3', 'style')],
         [Input('submit-button', 'n_clicks'),
          Input('interval-typing-1', 'n_intervals'),
          Input('interval-typing-2', 'n_intervals'),
@@ -38,15 +43,17 @@ def register_callbacks(dash_app):
          State('model-dropdown-3', 'value')]
     )
     #Gibt die Eingabe und Ausgabewerte der Modelle und die Bearbeitungszeit an das Dashboard weiter
-    def update_output(n_clicks, n_intervals_1, n_intervals_2, n_intervals_3, input_value, model1, model2, model3, ):
+    def update_output(n_clicks, n_intervals_1, n_intervals_2, n_intervals_3, input_value, model1, model2, model3):
         global responses, current_indices, start_times, end_times
         ctx = dash.callback_context
 
         if not ctx.triggered:
-            return dash.no_update, dash.no_update, dash.no_update, True, True, True, 0, 0, 0, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}
+            return (dash.no_update, dash.no_update, dash.no_update, True, True, True, 0, 0, 0,
+                    {'display': 'none'}, {'display': 'none'}, {'display': 'none'},
+                    {'display': 'none'}, {'display': 'none'}, {'display': 'none'},
+                    {'display': 'none'}, {'display': 'none'}, {'display': 'none'})
 
         button_id = ctx.triggered[0]['prop_id'].split('.')[0]
-
 
         if button_id == 'submit-button' and n_clicks > 0:
             start_times[0] = time.time()
@@ -60,6 +67,21 @@ def register_callbacks(dash_app):
             start_times[2] = time.time()
             responses[2] = model_manager.get_response(input_value, model=model3)
             end_times[2] = time.time()
-            print(round(end_times[0] - start_times[0]))
-            return responses[0], responses[1], responses[2], True, True, True, round(end_times[0] - start_times[0]), end_times[1] - start_times[1], end_times[2] - start_times[2],  {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'block'}
+            return (responses[0], responses[1], responses[2], True, True, True,
+                    round(end_times[0] - start_times[0]), round(end_times[1] - start_times[1]), round(end_times[2] - start_times[2]),
+                    {'display': 'block'}, {'display': 'block'}, {'display': 'block'},
+                    {'display': 'block'}, {'display': 'block'}, {'display': 'block'},
+                    {'display': 'block'}, {'display': 'block'}, {'display': 'block'})
 
+        return (dash.no_update, dash.no_update, dash.no_update, dash.no_update, dash.no_update, dash.no_update, dash.no_update, dash.no_update, dash.no_update,
+                dash.no_update, dash.no_update, dash.no_update, dash.no_update, dash.no_update, dash.no_update, dash.no_update, dash.no_update, dash.no_update)
+
+    @dash_app.callback(
+        Output('bar-chart', 'figure'),
+        Input('column-selector', 'value'),
+        Input('model-comparison-table', 'data')
+    )
+    def update_bar_chart(selected_column, table_data):
+        df = pd.DataFrame(table_data)
+        fig = px.bar(df, x='model', y=selected_column, title=f'Bar Chart of {selected_column}')
+        return fig
