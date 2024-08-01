@@ -42,7 +42,7 @@ def register_callbacks(dash_app):
          State('model-dropdown-2', 'value'),
          State('model-dropdown-3', 'value')]
     )
-    #Gibt die Eingabe und Ausgabewerte der Modelle und die Bearbeitungszeit an das Dashboard weiter
+    # Gibt die Eingabe und Ausgabewerte der Modelle und die Bearbeitungszeit an das Dashboard weiter
     def update_output(n_clicks, n_intervals_1, n_intervals_2, n_intervals_3, input_value, model1, model2, model3):
         global responses, current_indices, start_times, end_times
         ctx = dash.callback_context
