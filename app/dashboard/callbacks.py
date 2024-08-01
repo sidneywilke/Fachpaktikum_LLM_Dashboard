@@ -5,14 +5,11 @@ import time
 
 model_manager = ModelManager()
 
-responses = ['', '', '']  # To store full responses for typing effect
-current_indices = [0, 0, 0]  # To keep track of the current word index for each response
-start_times = [0, 0, 0]  # To record the start time of each model's response
-end_times = [0, 0, 0]  # To record the end time of each model's response
-time_1 = 0
+responses = ['', '', '']  # Um Beantwortungszeit zu speichern.
+start_times = [0, 0, 0]  # Um die Startzeit jedes Modells aufzunehmen.
+end_times = [0, 0, 0]  # Um die Endzeit jedes Modells aufzunehmen.
 
-def get_words(text):
-    return text.split()
+
 
 def register_callbacks(dash_app):
     @dash_app.callback(
@@ -40,6 +37,7 @@ def register_callbacks(dash_app):
          State('model-dropdown-2', 'value'),
          State('model-dropdown-3', 'value')]
     )
+    #Gibt die Eingabe und Ausgabewerte der Modelle und die Bearbeitungszeit an das Dashboard weiter
     def update_output(n_clicks, n_intervals_1, n_intervals_2, n_intervals_3, input_value, model1, model2, model3, ):
         global responses, current_indices, start_times, end_times
         ctx = dash.callback_context
@@ -49,7 +47,7 @@ def register_callbacks(dash_app):
 
         button_id = ctx.triggered[0]['prop_id'].split('.')[0]
 
-        # Start processing the first model's response
+
         if button_id == 'submit-button' and n_clicks > 0:
             start_times[0] = time.time()
             responses[0] = model_manager.get_response(input_value, model=model1)

@@ -7,6 +7,7 @@ from dash import dash_table
 def init_dashboard(server):
     dash_app = Dash(server=server, routes_pathname_prefix='/', assets_folder='assets', assets_url_path='/assets/', external_stylesheets=[dbc.themes.BOOTSTRAP])
 
+# Darstellung des Dashboards gemäß Bootstarp CSCS
     dash_app.layout = dbc.Container([
         dbc.Row(
             dbc.Col(html.H1("LLM Dashboard", className="bg-primary text-white p-2 my-2 text-center rounded", style={'borderRadius': '4'}),style={'borderRadius': '4'}, width=12)
