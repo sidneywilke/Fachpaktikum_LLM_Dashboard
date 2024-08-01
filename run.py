@@ -1,4 +1,4 @@
-# This is a sample Python script.
+# Ausführen der Anwendung
 from app import create_app
 
 app = create_app()
